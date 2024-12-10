@@ -49,10 +49,17 @@ module Enumerable
       my_each { |element| count += 1 if yield element }
     elsif arg.empty?
       count = size
-    # else
-    #   my_each { |element| count += 1 if element == arg[0] }
+    else
+      my_each { |element| count += 1 if element == arg[0] }
     end
     count
+  end
+
+  def my_map(proc = nil)
+    return to_enum(:my_map) unless block_given? || proc
+    result = []
+    my_each { |element| result << (proc ? proc.call(element) : yield(element)) }
+    result
   end
 end
 
