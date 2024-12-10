@@ -61,6 +61,21 @@ module Enumerable
     my_each { |element| result << (proc ? proc.call(element) : yield(element)) }
     result
   end
+
+  def my_inject(*arg)
+    if arg[0].is_a?(Integer)
+      accumulator = arg[0]
+      my_each { |element| accumulator = yield(accumulator, element) }
+    else
+      accumulator = self[0]
+      my_each_with_index do |element, index|
+        next if index.zero?
+
+        accumulator = yield(accumulator, element)
+      end
+    end
+    accumulator
+  end
 end
 
 # You will first have to define my_each
