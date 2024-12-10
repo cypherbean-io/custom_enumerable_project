@@ -24,6 +24,15 @@ module Enumerable
     end
     true
   end
+
+  def my_any?
+    if block_given?
+      my_each { |element| return true if yield element }
+    else
+      my_each { |element| return true if element }
+    end
+    false
+  end
 end
 
 # You will first have to define my_each
