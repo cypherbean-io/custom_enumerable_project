@@ -33,6 +33,15 @@ module Enumerable
     end
     false
   end
+
+  def my_none?
+    if block_given?
+      my_each { |element| return false if yield element }
+    else
+      my_each { |element| return false if element }
+    end
+    true
+  end
 end
 
 # You will first have to define my_each
